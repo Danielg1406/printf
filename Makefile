@@ -1,17 +1,19 @@
 NAME = libftprintf.a
 
-CC = CC
+CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = 
+INCLUDE = -I includes
 
-OBJ	= $(SRC:.c=.o)
+SRC = src/ft_printf.c src/utils.c 
+
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
