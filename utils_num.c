@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_num.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgomez-a <dgomez-a@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 13:01:22 by dgomez-a          #+#    #+#             */
-/*   Updated: 2024/07/24 16:33:32 by dgomez-a         ###   ########.fr       */
+/*   Created: 2024/07/24 17:33:21 by dgomez-a          #+#    #+#             */
+/*   Updated: 2024/07/24 17:33:25 by dgomez-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_char(char c)
+int	ft_print_num(int n)
 {
-	return (write(1, &c, 1));
-}
+	char	num[10];
+	int		count;
+	int		i;
 
-int	ft_write_str(char *str)
-{
-	int	count;
-
-	if (!str)
-		str = "(null)";
 	count = 0;
-	while (*str)
+	i = 0;
+	if (n == 0)
+		return (ft_print_char('0'));
+	while (n > 0)
 	{
-		count += ft_print_char(*str);
-		str++;
+		num[i++] = (n % 10) + '0';
+		n /= 10;
 	}
+	while (i--)
+		count += ft_print_char(num[i]);
 	return (count);
 }
 
-int	ft_print_num(int n)
+int	ft_print_unum(unsigned int n)
 {
 	char	num[10];
 	int		count;

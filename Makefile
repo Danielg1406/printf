@@ -1,23 +1,16 @@
 NAME = libftprintf.a
 
-CC = cc
-
-CFLAGS = -Wall -Wextra -Werror
-
-INCLUDE = -I includes
-
-SRC = src/ft_printf.c src/utils.c 
+SRC = ft_printf.c utils_char.c utils_num.c
 
 OBJ = $(SRC:.c=.o)
 
-all: $(NAME)
-
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	ar rcs $(NAME) $(OBJ)
+
+all: $(NAME)
 
 clean:
 	rm -f $(OBJ)
