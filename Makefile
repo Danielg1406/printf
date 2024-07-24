@@ -4,7 +4,7 @@ SRC = ft_printf.c utils_char.c utils_num.c
 
 OBJ = $(SRC:.c=.o)
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 $(NAME): $(OBJ)
