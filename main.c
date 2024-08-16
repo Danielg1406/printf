@@ -15,170 +15,331 @@
 #include <limits.h>
 
 
-void edge_cases_tests()
+void	test_simple(void)
 {
-
-	printf("------------------------------------------\n\n");
-	printf("***** Edge Cases tests *****");
-	printf("\n\n");
-
-	ft_printf("My result: NO ARGS\n");
-	printf("Expected Result: NO ARGS\n");
-	ft_printf("My result: [%c]\n", ' ');
-	printf("Expected result: [%c]\n", ' ');
-	ft_printf("My result: [%%]\n");
-	printf("Expected result: [%%]\n");
-	ft_printf("My result: [%s]\n", NULL);
-	// printf("My result: [%s]\n", NULL);
-	// printf("Expected result: [%h]\n");
-
-	printf("\n");
-	printf("------------------------------------------\n");
+	int	x;
+	int	y;
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: simple string -----------\n\n");
+	printf("Testing: (\"\\tHello!\\n\")\n");
+	x += printf("  Or\t:\tHello!\n");
+	y += ft_printf("  Ft\t:\tHello!\n");
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
 }
 
-void char_tests()
+void	test_percent(void)
 {
-	char a = 'A';
-	char b = 'B';
-	printf("------------------------------------------\n\n");
-	printf("***** Char tests *****");
-	printf("\n\n");
+	int	x;
+	int	y;
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: percent -----------\n\n");
+	printf("Testing: (\"\\t%%%%\\n\")\n");
+	x += printf("  Or\t:\t%%\n");
+	y += ft_printf("  Ft\t:\t%%\n");
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
 
-	ft_printf("My result:         [%c]\n", a);
-	printf("Expected Result:   [%c]\n", a);
-	ft_printf("My result:         [%c, %c]\n", a, b);
-	printf("Expected Result:   [%c, %c]\n", a, b);
-
-	printf("\n");
-	printf("------------------------------------------\n");
 }
 
-void string_tests()
+void	test_c(void)
 {
-	char *s1 = "First String";
-	char *s2 = "Second string";
-
-	printf("------------------------------------------\n\n");
-	printf("***** String tests *****");
-	printf("\n\n");
-
-	ft_printf("My result:         [%s]\n", s1);
-	printf("Expected Result:   [%s]\n", s1);
-	ft_printf("My result:         [%s, %s]\n", s1, s2);
-	printf("Expected Result:   [%s, %s]\n", s1, s2);
-	ft_printf("My result:         [NULL %s NULL]\n", NULL);
-	// printf("Expected Result:    [NULL %s NULL]\n", NULL);
-
-	printf("\n");
-	printf("------------------------------------------\n");
+	int	x, y;
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: %%c -----------\n\n");
+	printf("Testing: (\"\\t%%c\\n\", 'a')\n");
+	x += printf("  Or\t:\t%c\n", 'a');
+	y += ft_printf("  Ft\t:\t%c\n", 'a');
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\tThe character %%c is visible.\\n\", 'x')\n");
+	x += printf("  Or\t:\tThe character %c is visible.\n", 'x');
+	y += ft_printf("  Ft\t:\tThe character %c is visible.\n", 'x');
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
 }
 
-void digit_tests()
+void	test_s(void)
 {
-	int x = -2147483647;
-	int y = 1000;
-
-	printf("------------------------------------------\n\n");
-	printf("***** Digit tests *****");
-	printf("\n\n");
-
-	ft_printf("My result:         [%d]\n", x);
-	printf("Expected Result:   [%d]\n", x);
-	ft_printf("My result:         [%d, %d]\n", x, y);
-	printf("Expected Result:   [%d, %d]\n", x, y);
-	ft_printf("My Result:         [%u]\n", -2);
-	printf("Expected Result:   [%u]\n", -2);
-	ft_printf("My Result:         [%d]\n", INT_MIN);
-	printf("Expected Result:   [%d]\n", INT_MIN);
-		ft_printf("My Result:         [%d]\n", INT_MIN + 1);
-	printf("Expected Result:   [%d]\n", INT_MIN + 1);
-		ft_printf("My Result:         [%d]\n", INT_MAX);
-	printf("Expected Result:   [%d]\n", INT_MAX);
-
-	printf("\n");
-	printf("------------------------------------------\n");
+	int	x, y;
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: %%s -----------\n\n");
+	printf("Testing: (\"\\t%%s\\n\", \"coucou, ca va?\")\n");
+	x += printf("  Or\t:\t%s\n", "coucou, ca va?");
+	y += ft_printf("  Ft\t:\t%s\n", "coucou, ca va?");
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\tThe string \\\"%%s\\\" is visible.\\n\", \"TRALALA\")\n");
+	x += printf("  Or\t:\tThe string \"%s\" is visible.\n", "TRALALA");
+	y += ft_printf("  Ft\t:\tThe string \"%s\" is visible.\n", "TRALALA");
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	char *s = NULL;
+	if (s == NULL)
+		write(1, "(null)\n", 7);
+	printf("Testing: (\"\\tNULL %%s NULL.\\n\", NULL)\n");
+	x += printf("  Or\t:\tNULL %s NULL.\n", s);
+	y += ft_printf("  Ft\t:\tNULL %s NULL.\n", s);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
 }
 
-void hexa_tests()
+void	test_d(void)
 {
-	int x = 42;
-	int y = 1000;
-
-	printf("------------------------------------------\n\n");
-	printf("***** Hexa tests *****");
-	printf("\n\n");
-
-	if (ft_printf("M[%x]\n", x) == printf("E[%x]\n", x))
-		printf("PASSED!!\n\n");
-	else 
-		printf("NOT PASSED!!\n");
-	if (ft_printf("M[%x, %x]\n", x, y) == printf("E[%x, %x]\n", x, y))
-		printf("PASSED!!\n\n");
-	else 
-		printf("NOT PASSED!!\n\n");
-	if (ft_printf("M[%X]\n", x) == printf("E[%X]\n", x))
-		printf("PASSED!!\n\n");
-	else 
-		printf("NOT PASSED!!\n");
-	if (ft_printf("M[%X, %X]\n", x, y) == printf("E[%X, %X]\n", x, y))
-		printf("PASSED!!\n\n");
-	else 
-		printf("NOT PASSED!!\n\n");
-
-	printf("\n");
-	printf("------------------------------------------\n");
+	int x, y;
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: %%d -----------\n\n");
+	printf("Testing: (\"\\t%%d\\n\", 42)\n");
+	x += printf("  Or\t:\t%d\n", 42);
+	y += ft_printf("  Ft\t:\t%d\n", 42);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\tThe number %%d is visible.\\n\", 5671)\n");
+	x += printf("  Or\t:\tThe number %d is visible.\n", 5671);
+	y += ft_printf("  Ft\t:\tThe number %d is visible.\n", 5671);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%d\\n\", INT_MAX)\n");
+	x += printf("  Or\t:\t%d\n", INT_MAX);
+	y += ft_printf("  Ft\t:\t%d\n", INT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%d\\n\", INT_MIN)\n");
+	x += printf("  Or\t:\t%d\n", INT_MIN);
+	y += ft_printf("  Ft\t:\t%d\n", INT_MIN);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%i\\n\", INT_MIN - INT_MIN)\n");
+	x += printf("  Or\t:\t%i\n", INT_MIN - INT_MIN);
+	y += ft_printf("  Ft\t:\t%i\n", INT_MIN - INT_MIN);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
 }
 
-void pointer_tests()
+void	test_i(void)
 {
-	char *p1 = "First String";
-
-
-	printf("------------------------------------------\n\n");
-	printf("***** Pointer tests *****");
-	printf("\n\n");
-
-	ft_printf("My result:         [%p]\n", p1);
-	printf("Expected Result:   [%p]\n", p1);
-	// printf("Expected Result:   [%p]\n", 0);
-	ft_printf("My Result:   [%p]\n", 0);
-
-	
-
-	// ft_printf("My result:         [%p, %p]\n", p1, p2);
-	// printf("Expected Result:   [%p, %p]\n", p1, p2);
-
-	printf("\n");
-	printf("------------------------------------------\n");
+	int x, y;
+	printf("\n----------- TEST: %%i -----------\n\n");
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%i\\n\", 4422)\n");
+	x += printf("  Or\t:\t%i\n", 4422);
+	y += ft_printf("  Ft\t:\t%i\n", 4422);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\tThe number %%i is visible.\\n\", 0)\n");
+	x += printf("  Or\t:\tThe number %i is visible.\n", 0);
+	y += ft_printf("  Ft\t:\tThe number %i is visible.\n", 0);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%i\\n\", INT_MAX)\n");
+	x += printf("  Or\t:\t%i\n", INT_MAX);
+	y += ft_printf("  Ft\t:\t%i\n", INT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%i\\n\", INT_MIN)\n");
+	x += printf("  Or\t:\t%i\n", INT_MIN);
+	y += ft_printf("  Ft\t:\t%i\n", INT_MIN);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%i\\n\", INT_MIN + INT_MAX)\n");
+	x += printf("  Or\t:\t%i\n", INT_MIN + INT_MAX);
+	y += ft_printf("  Ft\t:\t%i\n", INT_MIN + INT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
 }
 
-void mix_test()
+void	test_x(void)
 {
-		printf("------------------------------------------\n\n");
-	printf("***** Mix tests *****");
-	printf("\n\n");
-	if (ft_printf("M[%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%]\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0) == printf("E[%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%]\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0))
-	{
-		printf("PASSED!!\n\n");
-	}
-	else
-	{
-				printf("NOT PASSED!!\n\n");
-	}
-
-
-		printf("\n");
-	printf("------------------------------------------\n");
+	int	x, y;
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: %%x -----------\n\n");
+	printf("Testing: (\"\\t%%x\\n\", 42)\n");
+	x += printf("  Or\t:\t%x\n", 42);
+	y += ft_printf("  Ft\t:\t%x\n", 42);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\tThe hex number %%x is visible.\\n\", 5671)\n");
+	x += printf("  Or\t:\tThe hex number %x is visible.\n", 5671);
+	y += ft_printf("  Ft\t:\tThe hex number %x is visible.\n", 5671);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%x\\n\", INT_MAX)\n");
+	x += printf("  Or\t:\t%x\n", INT_MAX);
+	y += ft_printf("  Ft\t:\t%x\n", INT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%x\\n\", INT_MIN)\n");
+	x += printf("  Or\t:\t%x\n", INT_MIN);
+	y += ft_printf("  Ft\t:\t%x\n", INT_MIN);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%x\\n\", -42)\n");
+	x += printf("  Or\t:\t%x\n", -42);
+	y += ft_printf("  Ft\t:\t%x\n", -42);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%x\\n\", UINT_MAX)\n");
+	x += printf("  Or\t:\t%x\n", UINT_MAX);
+	y += ft_printf("  Ft\t:\t%x\n", UINT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
 }
 
-int main()
+void	test_X(void)
 {
-	edge_cases_tests();
-  char_tests();
-	string_tests();
-	digit_tests();
-	hexa_tests();
-	pointer_tests();
-	mix_test();
-  return 0;
+	int	x, y;
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: %%X -----------\n\n");
+	printf("Testing: (\"\\t%%X\\n\", 42)\n");
+	x += printf("  Or\t:\t%X\n", 42);
+	y += ft_printf("  Ft\t:\t%X\n", 42);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\tThe hex number %%X is visible.\\n\", 5671)\n");
+	x += printf("  Or\t:\tThe hex number %X is visible.\n", 5671);
+	y += ft_printf("  Ft\t:\tThe hex number %X is visible.\n", 5671);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%X\\n\", INT_MAX)\n");
+	x += printf("  Or\t:\t%X\n", INT_MAX);
+	y += ft_printf("  Ft\t:\t%X\n", INT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%X\\n\", INT_MIN)\n");
+	x += printf("  Or\t:\t%X\n", INT_MIN);
+	y += ft_printf("  Ft\t:\t%X\n", INT_MIN);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%X\\n\", -42)\n");
+	x += printf("  Or\t:\t%X\n", -42);
+	y += ft_printf("  Ft\t:\t%X\n", -42);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%X\\n\", UINT_MAX)\n");
+	x += printf("  Or\t:\t%X\n", UINT_MAX);
+	y += ft_printf("  Ft\t:\t%X\n", UINT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+}
+
+void	test_u(void)
+{
+	int	x, y;
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: %%u -----------\n\n");
+	printf("Testing: (\"\\t%%u\\n\", 42)\n");
+	x += printf("  Or\t:\t%u\n", 42);
+	y += ft_printf("  Ft\t:\t%u\n", 42);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\tThe number %%u is visible.\\n\", 5671)\n");
+	x += printf("  Or\t:\tThe number %u is visible.\n", 5671);
+	y += ft_printf("  Ft\t:\tThe number %u is visible.\n", 5671);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%u\\n\", INT_MAX)\n");
+	x += printf("  Or\t:\t%u\n", INT_MAX);
+	y += ft_printf("  Ft\t:\t%u\n", INT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%u\\n\", INT_MIN)\n");
+	x += printf("  Or\t:\t%u\n", INT_MIN);
+	y += ft_printf("  Ft\t:\t%u\n", INT_MIN);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%u\\n\", -42)\n");
+	x += printf("  Or\t:\t%u\n", -42);
+	y += ft_printf("  Ft\t:\t%u\n", -42);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%u\\n\", UINT_MAX)\n");
+	x += printf("  Or\t:\t%u\n", UINT_MAX);
+	y += ft_printf("  Ft\t:\t%u\n", UINT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+}
+
+void	test_p(void)
+{
+	int	x, y;
+	printf("\n----------- TEST: %%p -----------\n\n");
+	x = 0;
+	y = 0;
+	int	n;
+	char	c;
+	void	*p;
+
+	n = 50;
+	c = 'a';
+	p = NULL;
+	printf("Testing: (\"\\t%%p\\n\", (void *)&n)\n");
+	x += printf("  Or\t:\t%p\n", (void *)&n);
+	y += ft_printf("  Ft\t:\t%p\n", (void *)&n);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%p\\n\", (void *)&c)\n");
+	x += printf("  Or\t:\t%p\n", (void *)&c);
+	y += ft_printf("  Ft\t:\t%p\n", (void *)&c);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%p\\n\", p)\n");
+	x += printf("  Or\t:\t%p\n", p);
+	y += ft_printf("  Ft\t:\t%p\n", p);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+}
+
+void	test_all(void)
+{
+	int	x, y;
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: ALL -----------\n\n");
+	printf("Testing: (\"\\tThe int is %%i or %%d, the char is %%c, the string is \\\"%%s\\\", the hex is %%x or %%X, the unsigned is %%u and the percent is %%%%.\\n\", 42, -42, 's', \"Hello\", 42, 42, 242)\n");
+	x += printf("  Or\t:\tThe int is %i or %d, the char is %c, the string is \"%s\", the hex is %x or %X, the unsigned is %u and the percent is %%.\n", 42, -42, 's', "Hello", 42, 42, 242);
+	y += ft_printf("  Ft\t:\tThe int is %i or %d, the char is %c, the string is \"%s\", the hex is %x or %X, the unsigned is %u and the percent is %%.\n", 42, -42, 's', "Hello", 42, 42, 242);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+}
+
+int	main(void)
+{
+	test_simple();
+	test_percent();
+	test_c();
+	test_s();
+	test_d();
+	test_i();
+	test_x();
+	test_X();
+	test_u();
+	test_p();
+	test_all();
+	return 0;
 }

@@ -14,21 +14,33 @@
 
 int	ft_print_num(int n)
 {
-	char	num[10];
+	char	num[12];
 	int		count;
 	int		i;
+	long	nbr;
 
 	count = 0;
 	i = 0;
-	if (n == 0)
+	nbr = n;
+	if (nbr == 0)
 		return (ft_print_char('0'));
-	while (n > 0)
+	if (nbr < 0)
 	{
-		num[i++] = (n % 10) + '0';
-		n /= 10;
+		count += ft_print_char('-');
+		nbr = -nbr;
 	}
-	while (i--)
+	while (nbr > 0)
+	{
+		num[i] = (nbr % 10) + '0';
+		i++;
+		nbr /= 10;
+	}
+	i--;
+	while (i >= 0)
+	{
 		count += ft_print_char(num[i]);
+		i--;
+	}
 	return (count);
 }
 
@@ -90,13 +102,19 @@ int	ft_print_ptr(void *ptr)
 	count = 0;
 	i = 0;
 	if (addr == 0)
-		count = ft_print_str("(nil)");
+		return (ft_print_str("(nil)"));
+	count += ft_print_str("0x");
 	while (addr > 0)
 	{
-		num[i++] = base[addr % 16];
+		num[i] = base[addr % 16];
+		i++;
 		addr /= 16;
 	}
-	while (i--)
+	i--;
+	while (i >= 0)
+	{
 		count += ft_print_char(num[i]);
+		i--;
+	}
 	return (count);
 }
