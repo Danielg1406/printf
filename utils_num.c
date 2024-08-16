@@ -12,6 +12,32 @@
 
 #include "ft_printf.h"
 
+static int	ft_handle_negative(long *nbr)
+{
+	if (*nbr < 0)
+	{
+		*nbr = -(*nbr);
+		return (ft_print_char('-'));
+	}
+	return (0);
+}
+
+static int	ft_num_to_str(char *num, long nbr)
+{
+	int	i;
+
+	i = 0;
+	if (nbr == 0)
+		num[i++] = '0';
+	while (nbr > 0)
+	{
+		num[i] = (nbr % 10) + '0';
+		i++;
+		nbr /= 10;
+	}
+	return (i);
+}
+
 int	ft_print_num(int n)
 {
 	char	num[12];
@@ -19,28 +45,11 @@ int	ft_print_num(int n)
 	int		i;
 	long	nbr;
 
-	count = 0;
-	i = 0;
 	nbr = n;
-	if (nbr == 0)
-		return (ft_print_char('0'));
-	if (nbr < 0)
-	{
-		count += ft_print_char('-');
-		nbr = -nbr;
-	}
-	while (nbr > 0)
-	{
-		num[i] = (nbr % 10) + '0';
-		i++;
-		nbr /= 10;
-	}
-	i--;
+	count = ft_handle_negative(&nbr);
+	i = ft_num_to_str(num, nbr) - 1;
 	while (i >= 0)
-	{
-		count += ft_print_char(num[i]);
-		i--;
-	}
+		count += ft_print_char(num[i--]);
 	return (count);
 }
 
@@ -61,60 +70,5 @@ int	ft_print_unum(unsigned int n)
 	}
 	while (i--)
 		count += ft_print_char(num[i]);
-	return (count);
-}
-
-int	ft_print_hex(unsigned int n, char format)
-{
-	char	*base;
-	char	num[8];
-	int		count;
-	int		i;
-
-	count = 0;
-	i = 0;
-	if (format == 'x')
-		base = "0123456789abcdef";
-	else
-		base = "0123456789ABCDEF";
-	if (n == 0)
-		return (ft_print_char('0'));
-	while (n > 0)
-	{
-		num[i++] = base[n % 16];
-		n /= 16;
-	}
-	while (i--)
-		count += ft_print_char(num[i]);
-	return (count);
-}
-
-int	ft_print_ptr(void *ptr)
-{
-	unsigned long long	addr;
-	char				*base;
-	char				num[16];
-	int					count;
-	int					i;
-
-	addr = (unsigned long long)ptr;
-	base = "0123456789abcdef";
-	count = 0;
-	i = 0;
-	if (addr == 0)
-		return (ft_print_str("(nil)"));
-	count += ft_print_str("0x");
-	while (addr > 0)
-	{
-		num[i] = base[addr % 16];
-		i++;
-		addr /= 16;
-	}
-	i--;
-	while (i >= 0)
-	{
-		count += ft_print_char(num[i]);
-		i--;
-	}
 	return (count);
 }
